@@ -1,4 +1,9 @@
 <p>book-card works!</p>
 
-<h3 [ngStyle]="{backgroundColor: '#ffccbb'}">Moby Dick</h3>
-<h4>Herman Melville</h4>
+<h3>{{ content?.title }}</h3>
+
+<h4 [ngStyle]="customStyle">{{ content?.author }}</h4>
+
+<p *ngIf="content?.abstract">{{ content?.abstract }}</p>
+
+<button (click)="handleDetailsClick($event)">Details</button>

@@ -8,17 +8,21 @@ import { BookApiService } from '../shared/book-api.service';
   styleUrls: ['./book-list.component.scss'],
 })
 export class BookListComponent implements OnInit {
-  books: Book[] = [];
+  /**
+   *
+   */
+  books$ = this.service.books$;
 
+  /**
+   *
+   * @param service
+   */
   constructor(private readonly service: BookApiService) {}
 
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  /**
+   *
+   */
   ngOnInit(): void {
-    this.service.getAll().subscribe({
-      // effect
-      next: (res) => (this.books = res),
-      // effect
-      complete: () => console.log('Habe fertig'),
-    });
+    this.service.getAll().subscribe();
   }
 }

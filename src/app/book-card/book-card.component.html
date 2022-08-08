@@ -1,6 +1,6 @@
 <p>book-card works!</p>
 
-<h3>{{ content?.title }}</h3>
+<h3>{{ content?.title | uppercase | slice:0:10 }}</h3>
 
 <h4 [ngStyle]="customStyle">{{ content?.author }}</h4>
 

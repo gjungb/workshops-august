@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../model/book';
+import { BookApiService } from '../shared/book-api.service';
 
 @Component({
   selector: 'app-book-list',
@@ -7,24 +8,17 @@ import { Book } from '../model/book';
   styleUrls: ['./book-list.component.scss'],
 })
 export class BookListComponent implements OnInit {
-  books: Book[] = [
-    {
-      title: 'How to win friends',
-      author: 'Dale Carnegie',
-    },
-    {
-      title: 'The Willpower Instinct: How Self-Control Works ...',
-      author: 'Kelly McGonigal',
-      abstract: 'Based on Stanford University ...',
-    },
-    {
-      author: 'Simon Sinek',
-      title: 'Start with WHY',
-      abstract: "START WITH WHY shows that the leaders who've ...",
-    },
-  ];
+  books: Book[] = [];
 
-  constructor() {}
+  constructor(private readonly service: BookApiService) {}
 
-  ngOnInit(): void {}
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  ngOnInit(): void {
+    this.service.getAll().subscribe({
+      // effect
+      next: (res) => (this.books = res),
+      // effect
+      complete: () => console.log('Habe fertig'),
+    });
+  }
 }

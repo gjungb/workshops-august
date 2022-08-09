@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { catchError, delay } from 'rxjs/operators';
 import { Book } from '../model/book';
 
 @Injectable({
@@ -36,6 +37,9 @@ export class BookApiService {
    */
   getAll(): Observable<Book[]> {
     const url = `${this.BASE_URL}/books`;
-    return this.client.get<Book[]>(url);
+    return this.client.get<Book[]>(url).pipe(
+      catchError(() => of(this.books)),
+      delay(2000)
+    );
   }
 }

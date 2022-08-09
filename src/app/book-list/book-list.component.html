@@ -1,7 +1,18 @@
 <p>book-list works!</p>
 
-<ol>
-    <li *ngFor="let book of books">
-        <app-book-card [content]="book"></app-book-card>
-    </li>
-</ol>
+<ng-container *ngIf="books$ | async as things; else loader">
+    <p>Wir haben {{ things.length }} Bücher.</p>
+
+    <ol>
+        <li *ngFor="let book of things">
+            <app-book-card [content]="book"></app-book-card>
+        </li>
+    </ol>
+</ng-container>
+
+<ng-template #loader>
+    <p>
+        Lade gerade ...
+    </p>
+</ng-template>
+

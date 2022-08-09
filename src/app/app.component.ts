@@ -9,6 +9,8 @@ import { Book } from './model/book';
 export class AppComponent {
   title = 'Willkomen bei workshops-august';
 
+  visible = true;
+
   book: Book = {
     title: 'Moby Dick',
     author: 'Herman Melville',

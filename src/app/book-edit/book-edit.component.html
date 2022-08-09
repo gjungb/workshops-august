@@ -1,5 +1,12 @@
 <p>book-edit works!</p>
 
-<form #myForm="ngForm">
-  <input type="text" [(ngModel)]="book.title" name="title" #myTitle="ngModel" />
+<form #myForm="ngForm" (ngSubmit)="updateBook(myForm.value)">
+  <input type="text" [(ngModel)]="book.title" name="title" #myTitle="ngModel" required [minlength]="min" />
+  <span *ngIf="myTitle.hasError('required')">Bitte ausfüllen</span>
+
+  <button type="submit" [disabled]="myForm.invalid">Submit</button>
 </form>
+
+<pre><code>{{ myTitle.errors | json }}</code></pre>
+
+<pre><code>{{ myForm.value | json }}</code></pre>

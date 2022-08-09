@@ -7,9 +7,24 @@ import { Book } from '../model/book';
   styleUrls: ['./book-edit.component.scss'],
 })
 export class BookEditComponent {
+  /**
+   *
+   */
   readonly book: Partial<Book> = {
     title: 'Moby Dick',
   };
 
-  constructor() {}
+  /**
+   *
+   */
+  readonly min = 3;
+
+  /**
+   *
+   * @param value
+   */
+  updateBook(value: Partial<Book>): void {
+    // effect
+    console.log(value);
+  }
 }

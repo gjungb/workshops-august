@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControlStatus,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { Observable } from 'rxjs';
 import { Book } from '../model/book';
 
 @Component({
@@ -12,6 +18,16 @@ export class BookNewComponent implements OnInit {
    *
    */
   form!: FormGroup;
+
+  /**
+   *
+   */
+  status$!: Observable<FormControlStatus>;
+
+  /**
+   *
+   */
+  title$?: Observable<string>;
 
   /**
    *
@@ -28,6 +44,16 @@ export class BookNewComponent implements OnInit {
         validators: [Validators.required, Validators.minLength(2)],
       }),
     });
+
+    /**
+     *
+     */
+    this.status$ = this.form.statusChanges;
+
+    /**
+     *
+     */
+    this.title$ = this.form.get('title')?.valueChanges;
   }
 
   /**

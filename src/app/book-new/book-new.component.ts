@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Book } from '../model/book';
 
 @Component({
@@ -15,10 +15,16 @@ export class BookNewComponent implements OnInit {
 
   /**
    *
+   * @param fb
+   */
+  constructor(private readonly fb: FormBuilder) {}
+
+  /**
+   *
    */
   ngOnInit(): void {
-    this.form = new FormGroup({
-      title: new FormControl(null, {
+    this.form = this.fb.group({
+      title: this.fb.control(null, {
         validators: [Validators.required, Validators.minLength(2)],
       }),
     });

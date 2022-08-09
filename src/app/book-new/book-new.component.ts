@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { Book } from '../model/book';
 
 @Component({
@@ -48,12 +49,19 @@ export class BookNewComponent implements OnInit {
     /**
      *
      */
-    this.status$ = this.form.statusChanges;
+    this.status$ = this.form.statusChanges.pipe(
+      distinctUntilChanged(),
+      tap((value) => console.log(value))
+    );
 
     /**
      *
      */
-    this.title$ = this.form.get('title')?.valueChanges;
+    this.title$ = this.form.get('title')?.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap((value) => console.log(value))
+    );
   }
 
   /**

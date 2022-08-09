@@ -1,5 +1,9 @@
 <h1>{{ title }}</h1>
 
+<app-book-edit></app-book-edit>
+
+<hr>
+
 <button (click)="visible = !visible">Toggle</button>
 
 <app-book-list *ngIf="visible"></app-book-list>

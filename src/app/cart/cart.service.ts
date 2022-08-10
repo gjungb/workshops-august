@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Book } from '../model/book';
+import { CartModule } from './cart.module';
 
 /**
  *
  */
 @Injectable({
-  providedIn: 'root',
+  providedIn: CartModule,
 })
 export class CartService {
   /**
@@ -15,9 +17,18 @@ export class CartService {
   private readonly cart$$ = new BehaviorSubject<ReadonlyArray<Book>>([]);
 
   /**
-   * The publicly available Observable that can be subscribed to by - multiple - Observers
+   * The publicly available Observable of books in the cart that can be subscribed to by - multiple - Observers
    */
   readonly cart$ = this.cart$$.asObservable();
+
+  /**
+   * The publicly available Observable of the sum of pages that can be subscribed to by - multiple - Observers
+   */
+  readonly pages$ = this.cart$.pipe(
+    map((books) =>
+      books.reduce<number>((sum, book) => sum + (book.numPages ?? 0), 0)
+    )
+  );
 
   /**
    *

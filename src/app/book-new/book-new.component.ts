@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormControlStatus,
   FormGroup,
   Validators,
@@ -18,7 +19,7 @@ export class BookNewComponent implements OnInit {
   /**
    *
    */
-  form!: FormGroup;
+  myForm!: FormGroup;
 
   /**
    *
@@ -40,8 +41,8 @@ export class BookNewComponent implements OnInit {
    *
    */
   ngOnInit(): void {
-    this.form = this.fb.group({
-      title: this.fb.control(null, {
+    this.myForm = new FormGroup({
+      title: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(2)],
       }),
     });
@@ -49,15 +50,14 @@ export class BookNewComponent implements OnInit {
     /**
      *
      */
-    this.status$ = this.form.statusChanges.pipe(
-      distinctUntilChanged(),
+    this.status$ = this.myForm.statusChanges.pipe(
       tap((value) => console.log(value))
     );
 
     /**
      *
      */
-    this.title$ = this.form.get('title')?.valueChanges.pipe(
+    this.title$ = this.myForm.get('title')?.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged(),
       tap((value) => console.log(value))

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, delay } from 'rxjs/operators';
 import { Book } from '../model/book';
@@ -14,32 +14,42 @@ export class BookApiService {
     {
       title: 'How to win friends',
       author: 'Dale Carnegie',
+      isbn: '',
     },
     {
       title: 'The Willpower Instinct: How Self-Control Works ...',
       author: 'Kelly McGonigal',
       abstract: 'Based on Stanford University ...',
+      isbn: '',
     },
     {
       author: 'Simon Sinek',
       title: 'Start with WHY',
       abstract: "START WITH WHY shows that the leaders who've ...",
+      isbn: '',
     },
   ];
 
-  private BASE_URL = 'http://localhost:4730';
-
-  constructor(private readonly client: HttpClient) {}
+  constructor(
+    private readonly client: HttpClient,
+    @Inject('BASE_URL') private readonly baseUrl: string
+  ) {}
 
   /**
    *
    * @returns
    */
   getAll(): Observable<Book[]> {
-    const url = `${this.BASE_URL}/books`;
+    const url = `${this.baseUrl}/books`;
     return this.client.get<Book[]>(url).pipe(
       catchError(() => of(this.books)),
       delay(2000)
     );
+  }
+
+  /** */
+  getBookByIsbn(isbn: string | null): Observable<Book> {
+    const url = `${this.baseUrl}/books/${isbn}`;
+    return this.client.get<Book>(url);
   }
 }

@@ -1,7 +1,7 @@
 <p>book-edit works!</p>
 
 <form #myForm="ngForm" (ngSubmit)="updateBook(myForm.value)">
-  <input type="text" [(ngModel)]="book.title" name="title" #myTitle="ngModel" required [minlength]="min" />
+  <input type="text" [(ngModel)]="book.title" name="title" #myTitle="ngModel" required [minlength]="min" [ngModelOptions]="{updateOn: 'blur'}" />
   <span *ngIf="myTitle.hasError('required')">Bitte ausfüllen</span>
 
   <button type="submit" [disabled]="myForm.invalid">Submit</button>

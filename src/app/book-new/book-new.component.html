@@ -1,11 +1,11 @@
 <p>book-new works!</p>
 
-<form [formGroup]="form" (ngSubmit)="createBook(form.value)">
+<form [formGroup]="myForm" (ngSubmit)="createBook(myForm.value)">
     <input type="text" formControlName="title">
-    <button type="submit" [disabled]="form.invalid">Submit</button>
+    <button type="submit" [disabled]="myForm.invalid">Submit</button>
 </form>
 
-<pre><code>{{ form.get('title')?.errors | json }}</code></pre>
+<pre><code>{{ myForm.get('title')?.errors | json }}</code></pre>
 
 <pre><code>{{ status$ | async | json }}</code></pre>
 

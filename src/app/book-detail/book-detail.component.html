@@ -1,0 +1,10 @@
+<p>book-detail works!</p>
+
+
+<ng-container *ngIf="book$ | async as book; else loader">
+    <app-book-card [content]="book"></app-book-card>
+</ng-container>
+
+<ng-template #loader>
+    <p>Am Laden ....</p>
+</ng-template>

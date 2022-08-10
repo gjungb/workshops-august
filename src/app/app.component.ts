@@ -15,6 +15,7 @@ export class AppComponent {
     title: 'Moby Dick',
     author: 'Herman Melville',
     abstract: 'A book about an old grumpy man',
+    isbn: '',
   };
 
   log(value: unknown): void {

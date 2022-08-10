@@ -19,4 +19,8 @@ export interface Book {
    * A short summary
    */
   abstract?: string;
+  /**
+   * The number of pages
+   */
+  numPages?: number;
 }

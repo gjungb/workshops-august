@@ -1,0 +1,5 @@
+<p>cart-symbol works!</p>
+
+<ng-container *ngIf="cart$ | async as cart">
+  <p>{{ cart.length | i18nPlural:mapping }} in the cart</p>
+</ng-container>

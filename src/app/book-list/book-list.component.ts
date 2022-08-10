@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription, timer } from 'rxjs';
+import { CartService } from '../cart/cart.service';
 import { Book } from '../model/book';
 import { BookApiService } from '../shared/book-api.service';
 
@@ -15,7 +16,15 @@ export class BookListComponent implements OnInit, OnDestroy {
 
   private sub?: Subscription;
 
-  constructor(private readonly service: BookApiService) {}
+  /**
+   *
+   * @param service
+   * @param cart
+   */
+  constructor(
+    private readonly service: BookApiService,
+    private readonly cart: CartService
+  ) {}
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
@@ -33,6 +42,18 @@ export class BookListComponent implements OnInit, OnDestroy {
     // });
   }
 
+  /**
+   *
+   * @param book
+   */
+  selectBook(book: Book): void {
+    // effect
+    this.cart.addBookToCart(book);
+  }
+
+  /**
+   *
+   */
   ngOnDestroy(): void {
     this.sub?.unsubscribe();
   }

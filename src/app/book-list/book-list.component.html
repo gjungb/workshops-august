@@ -6,7 +6,7 @@
     <ol>
         <li *ngFor="let book of things">
             <a [routerLink]=" [book.isbn] ">Details</a>
-            <app-book-card [content]="book"></app-book-card>
+            <app-book-card [content]="book" (selectBook)="selectBook($event)"></app-book-card>
         </li>
     </ol>
 </ng-container>

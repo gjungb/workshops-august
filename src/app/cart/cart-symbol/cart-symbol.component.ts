@@ -20,6 +20,15 @@ export class CartSymbolComponent implements OnInit {
 
   /**
    *
+   */
+  readonly mapping: Record<string, string> = {
+    '=0': 'No books',
+    '=1': 'One book',
+    other: '# books',
+  };
+
+  /**
+   *
    * @param cart
    */
   constructor(private readonly cart: CartService) {}
